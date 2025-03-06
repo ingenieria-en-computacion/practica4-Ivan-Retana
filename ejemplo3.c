@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-    int *arreglo, *arreglo2, num, cont;
+    int *arreglo=NULL, *arreglo2=NULL, num, cont;
     printf("¿Cuántos elementos tiene el conjunto?\n");
     scanf("%d", &num);
     arreglo = (int*)malloc(num *sizeof(int));
@@ -16,10 +16,11 @@ int main(){
             printf("\t%d", *(arreglo + cont));            
         }
         printf("\t]\n");
+        
 
         printf("Aumentando el espacio reservado al doble\n");
         num *=2;
-        arreglo2 = (int*)realloc(arreglo, num*sizeof(int));
+        arreglo2 = (int*)realloc(arreglo, num*sizeof(int));//sirve para modificar el tamaño por el que se quiere cambiar
         if(arreglo2 != NULL){ 
             arreglo = arreglo2;       
             for(; cont <num; cont++){
@@ -30,12 +31,19 @@ int main(){
             for(cont =0; cont <num; cont++){
                 printf("\t%d", *(arreglo2 + cont));            
             }
-            printf("\t]\n");    
+            printf("\t]\n");   
+            arreglo2 = (int*)realloc(arreglo, num*sizeof(int)); 
+            printf("\t]\n");  
+            for(; cont <2; cont++){
+                printf("Ingresa el elemento %d del conjunto\n", cont+1);
+                scanf("%d", (arreglo2+cont));
             
         }
         printf("Liberando el espacio reservado\n");
 
-        free(arreglo);        
+        free(arreglo);   
+        arreglo=arreglo2=NULL;    
     }
     return 0;
+}
 }
